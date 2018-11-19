@@ -1,8 +1,8 @@
 #Load raw data 
 library(readr)
 
-train <- read.csv("R/train.csv", header = TRUE)
-test <- read.csv("R/test.csv", header = TRUE)
+train <- read.csv("R/Kaggle-Titanic/train.csv", header = TRUE)
+test <- read.csv("R/Kaggle-Titanic/test.csv", header = TRUE)
 
 #Add a "survived" variable to the test set to allow for combining data sets
 test.survived <- data.frame(Survived= rep("None",nrow(test)),test[,])
@@ -142,3 +142,42 @@ ggplot(misses[misses$Survived != "None",], aes(x = Age, fill = Survived)) +
   ggtitle("Age for 'Miss.' by Pclass") + 
   xlab("Age") +
   ylab("Total Count")
+
+# Appears, that female children may have different survival rate, 
+# could be a candidate for a feature engineering later 
+
+misses.alone <- misses[which(misses$SibSp == 0 & misses$Parch ==0),]
+summary(misses.alone$Age )
+length(which(misses.alone$Age <= 14.5))
+
+# Move on to the Sibsp variable and summarize the variable
+
+summary(data.combined$SibSp)
+
+#Treat as a factor
+
+length(unique(data.combined$SibSp))
+
+data.combined$SibSp <- as.factor(data.combined$SibSp)
+
+#Visualization of survival rate (Sibsp, Pclass and title)
+
+ggplot(data.combined[1:891,], aes(x = SibSp, fill = Survived)) +
+  geom_bar() +
+  facet_wrap(~Pclass + title) + 
+  ggtitle("Pclass, Title") +
+  xlab("SibSp") +
+  ylab("Total Count") +
+  ylim(0,300) +
+  labs(fill = "Survived")
+
+# Treat the parch vaiable as a factor and visualize
+data.combined$Parch <- as.factor(data.combined$Parch)
+ggplot(data.combined[1:891,], aes(x = Parch, fill = Survived)) +
+  geom_bar() +
+  facet_wrap(~Pclass + title) + 
+  ggtitle("Pclass, Title") +
+  xlab("ParCh") +
+  ylab("Total Count") +
+  ylim(0,300) +
+  labs(fill = "Survived")
