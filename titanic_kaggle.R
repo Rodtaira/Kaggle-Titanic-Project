@@ -1,13 +1,13 @@
 #Load raw data 
 library(readr)
 
-<<<<<<< HEAD
+
 train <- read.csv("R/Kaggle-Titanic/train.csv", header = TRUE)
 test <- read.csv("R/Kaggle-Titanic/test.csv", header = TRUE)
-=======
+
 train <- read.csv("R/train.csv", header = TRUE)
 test <- read.csv("R/test.csv", header = TRUE)
->>>>>>> b808cd6aaa92c7c4fde4facae882ee7c45aa13d6
+
 
 #Add a "survived" variable to the test set to allow for combining data sets
 test.survived <- data.frame(Survived= rep("None",nrow(test)),test[,])
@@ -147,7 +147,7 @@ ggplot(misses[misses$Survived != "None",], aes(x = Age, fill = Survived)) +
   ggtitle("Age for 'Miss.' by Pclass") + 
   xlab("Age") +
   ylab("Total Count")
-<<<<<<< HEAD
+
 
 # Appears, that female children may have different survival rate, 
 # could be a candidate for a feature engineering later 
@@ -187,5 +187,4 @@ ggplot(data.combined[1:891,], aes(x = Parch, fill = Survived)) +
   ylab("Total Count") +
   ylim(0,300) +
   labs(fill = "Survived")
-=======
->>>>>>> b808cd6aaa92c7c4fde4facae882ee7c45aa13d6
+
