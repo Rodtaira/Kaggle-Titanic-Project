@@ -5,9 +5,6 @@ library(readr)
 train <- read.csv("R/Kaggle-Titanic/train.csv", header = TRUE)
 test <- read.csv("R/Kaggle-Titanic/test.csv", header = TRUE)
 
-train <- read.csv("R/train.csv", header = TRUE)
-test <- read.csv("R/test.csv", header = TRUE)
-
 
 #Add a "survived" variable to the test set to allow for combining data sets
 test.survived <- data.frame(Survived= rep("None",nrow(test)),test[,])
